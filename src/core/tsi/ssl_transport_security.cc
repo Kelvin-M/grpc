@@ -1663,6 +1663,12 @@ static void tsi_ssl_server_handshaker_factory_destroy(
 
 static int does_entry_match_name(absl::string_view entry,
                                  absl::string_view name) {
+
+  gpr_log(GPR_ERROR, "A - entry: %s",
+          std::string(entry).c_str());
+  gpr_log(GPR_ERROR, "A - name: %s",
+          std::string(name).c_str());
+
   if (entry.empty()) return 0;
 
   /* Take care of '.' terminations. */
@@ -1691,6 +1697,12 @@ static int does_entry_match_name(absl::string_view entry,
       name.substr(name_subdomain_pos + 1); /* Starts after the dot. */
   entry.remove_prefix(2);                  /* Remove *. */
   size_t dot = name_subdomain.find('.');
+
+  gpr_log(GPR_ERROR, "B - entry: %s",
+          std::string(entry).c_str());
+  gpr_log(GPR_ERROR, "B - name_subdomain: %s",
+          std::string(name_subdomain).c_str());
+
   if (dot == absl::string_view::npos || dot == name_subdomain.size() - 1) {
     gpr_log(GPR_ERROR, "Invalid toplevel subdomain: %s",
             std::string(name_subdomain).c_str());
